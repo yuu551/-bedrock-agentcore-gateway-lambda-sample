@@ -1,0 +1,5 @@
+.env
+agentcore-env
+venv
+.claude
+.mcp.json
