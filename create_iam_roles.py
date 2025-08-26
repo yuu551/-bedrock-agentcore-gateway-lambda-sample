@@ -83,17 +83,33 @@ def create_runtime_policy(account_id):
                 "Resource": "*"
             },
             {
-                "Sid": "LogsAccess",
+                "Sid": "LogsDescribeLogGroups",
                 "Effect": "Allow",
                 "Action": [
-                    "logs:DescribeLogStreams",
+                    "logs:DescribeLogGroups"
+                ],
+                "Resource": "*"
+            },
+            {
+                "Sid": "LogsGroupLevel",
+                "Effect": "Allow",
+                "Action": [
                     "logs:CreateLogGroup",
-                    "logs:DescribeLogGroups",
+                    "logs:DescribeLogStreams"
+                ],
+                "Resource": [
+                    f"arn:aws:logs:us-west-2:{account_id}:log-group:/aws/bedrock-agentcore/runtimes/*"
+                ]
+            },
+            {
+                "Sid": "LogsStreamLevel",
+                "Effect": "Allow",
+                "Action": [
                     "logs:CreateLogStream",
                     "logs:PutLogEvents"
                 ],
                 "Resource": [
-                    f"arn:aws:logs:us-west-2:{account_id}:log-group:/aws/bedrock-agentcore/runtimes/*"
+                    f"arn:aws:logs:us-west-2:{account_id}:log-group:/aws/bedrock-agentcore/runtimes/*:log-stream:*"
                 ]
             },
             {
@@ -165,17 +181,33 @@ def create_gateway_policy(account_id):
                 "Resource": f"arn:aws:lambda:us-west-2:{account_id}:function:*"
             },
             {
-                "Sid": "LogsAccess",
+                "Sid": "LogsDescribeLogGroupsGateway",
                 "Effect": "Allow",
                 "Action": [
-                    "logs:DescribeLogStreams",
+                    "logs:DescribeLogGroups"
+                ],
+                "Resource": "*"
+            },
+            {
+                "Sid": "LogsGroupLevelGateway",
+                "Effect": "Allow",
+                "Action": [
                     "logs:CreateLogGroup",
-                    "logs:DescribeLogGroups",
+                    "logs:DescribeLogStreams"
+                ],
+                "Resource": [
+                    f"arn:aws:logs:us-west-2:{account_id}:log-group:/aws/bedrock-agentcore/gateway/*"
+                ]
+            },
+            {
+                "Sid": "LogsStreamLevelGateway",
+                "Effect": "Allow",
+                "Action": [
                     "logs:CreateLogStream",
                     "logs:PutLogEvents"
                 ],
                 "Resource": [
-                    f"arn:aws:logs:us-west-2:{account_id}:log-group:/aws/bedrock-agentcore/gateway/*"
+                    f"arn:aws:logs:us-west-2:{account_id}:log-group:/aws/bedrock-agentcore/gateway/*:log-stream:*"
                 ]
             },
             {
